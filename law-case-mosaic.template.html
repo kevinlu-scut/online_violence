@@ -1,0 +1,296 @@
+<div id="law-case-mosaic-019f6f95" class="law-case-vis">
+  <section class="case-summary card" aria-live="polite" aria-label="当前案例摘要">
+    <span id="law-summary-count">共 178 案</span>
+    <span id="law-summary-title">按案件编号排列</span>
+    <span id="law-summary-meta" class="text-small">悬停、聚焦或点击查看故事与应对启示</span>
+  </section>
+
+  <div id="law-case-grid" class="law-case-grid" aria-label="178条网络暴力裁判案例"></div>
+
+  <div class="law-legend text-small" aria-label="交互说明">
+    <span>深蓝条款＝一份裁判文书</span>
+    <span>悬停查看 · 点击锁定 · Esc 关闭</span>
+  </div>
+
+  <aside id="law-case-popover" class="case-popover card" role="status" aria-live="polite" hidden>
+    <div class="popover-heading">
+      <h3 id="law-popover-title"></h3>
+    </div>
+    <div class="story-block">
+      <span class="text-small">数据新闻故事</span>
+      <p id="law-popover-story"></p>
+    </div>
+    <div class="insight-block">
+      <span class="text-small">网暴应对启示</span>
+      <p id="law-popover-insight"></p>
+    </div>
+  </aside>
+</div>
+
+<style>
+  html:root,
+  body {
+    background: transparent !important;
+  }
+
+  #law-case-mosaic-019f6f95 {
+    --law-blue: color-mix(in srgb, #0b2d5c 90%, var(--card));
+    --law-blue-raised: color-mix(in srgb, #12427f 92%, var(--card));
+    --law-rule: color-mix(in srgb, var(--accent) 38%, var(--primary-foreground));
+    --law-tile-text: var(--primary-foreground);
+    position: relative;
+    width: 100%;
+    color: var(--foreground);
+    background: transparent;
+  }
+
+  #law-case-mosaic-019f6f95 .case-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  #law-case-mosaic-019f6f95 #law-summary-title {
+    flex: 1 1 260px;
+  }
+
+  #law-case-mosaic-019f6f95 .law-case-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
+    gap: 3px;
+    width: 100%;
+  }
+
+  #law-case-mosaic-019f6f95 .case-tile {
+    position: relative;
+    aspect-ratio: 1.7;
+    min-height: 24px;
+    min-width: 0;
+    padding-inline: 4px;
+    overflow: hidden;
+    isolation: isolate;
+    color: var(--law-tile-text);
+    background:
+      linear-gradient(90deg, transparent 0 9%, var(--law-rule) 9% 11%, transparent 11%),
+      repeating-linear-gradient(0deg, transparent 0 24%, color-mix(in srgb, var(--law-rule) 34%, transparent) 24% 26%, transparent 26% 49%),
+      var(--law-blue);
+    border-color: color-mix(in srgb, var(--law-rule) 56%, var(--law-blue));
+    font-family: "Songti SC", "STSong", serif;
+    white-space: nowrap;
+  }
+
+  #law-case-mosaic-019f6f95 .case-tile:hover,
+  #law-case-mosaic-019f6f95 .case-tile:focus-visible {
+    background:
+      linear-gradient(90deg, transparent 0 9%, var(--law-rule) 9% 11%, transparent 11%),
+      repeating-linear-gradient(0deg, transparent 0 24%, color-mix(in srgb, var(--law-rule) 40%, transparent) 24% 26%, transparent 26% 49%),
+      var(--law-blue-raised);
+  }
+
+  #law-case-mosaic-019f6f95 .law-legend {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    color: var(--muted-foreground);
+  }
+
+  #law-case-mosaic-019f6f95 .case-popover {
+    position: absolute;
+    z-index: 20;
+    width: min(560px, calc(100% - 16px));
+    pointer-events: none;
+    padding: 16px;
+    color: var(--popover-foreground);
+    background: var(--popover);
+    border: 1px solid var(--border);
+    box-shadow: 0 16px 36px color-mix(in srgb, var(--foreground) 22%, transparent);
+    font-family: "Songti SC", "STSong", serif;
+  }
+
+  #law-case-mosaic-019f6f95 .popover-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  #law-case-mosaic-019f6f95 .popover-heading h3 {
+    margin: 0;
+    flex: 1 1 auto;
+  }
+
+  #law-case-mosaic-019f6f95 .story-block,
+  #law-case-mosaic-019f6f95 .insight-block {
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+  }
+
+  #law-case-mosaic-019f6f95 .insight-block {
+    margin-top: 12px;
+  }
+
+  #law-case-mosaic-019f6f95 .story-block > span,
+  #law-case-mosaic-019f6f95 .insight-block > span {
+    color: var(--muted-foreground);
+  }
+
+  #law-case-mosaic-019f6f95 .story-block p,
+  #law-case-mosaic-019f6f95 .insight-block p {
+    margin: 6px 0 0;
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 480px) {
+    #law-case-mosaic-019f6f95 .law-case-grid {
+      grid-template-columns: repeat(auto-fill, minmax(32px, 1fr));
+      gap: 3px;
+    }
+
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    #law-case-mosaic-019f6f95 .case-tile {
+      transition: transform 120ms ease, background 120ms ease;
+    }
+
+    #law-case-mosaic-019f6f95 .case-tile:hover,
+    #law-case-mosaic-019f6f95 .case-tile:focus-visible {
+      transform: translateY(-1px);
+    }
+  }
+</style>
+
+<script>
+(() => {
+  const root = document.getElementById("law-case-mosaic-019f6f95");
+  if (!root) return;
+
+  const caseData = __CASE_DATA__;
+  const grid = root.querySelector("#law-case-grid");
+  const popover = root.querySelector("#law-case-popover");
+  const summaryCount = root.querySelector("#law-summary-count");
+  const summaryTitle = root.querySelector("#law-summary-title");
+  const summaryMeta = root.querySelector("#law-summary-meta");
+  const fields = {
+    title: root.querySelector("#law-popover-title"),
+    story: root.querySelector("#law-popover-story"),
+    insight: root.querySelector("#law-popover-insight"),
+  };
+
+  let pinnedId = null;
+  let activeButton = null;
+  const buttons = new Map();
+  const byId = new Map(caseData.map((item) => [item.id, item]));
+
+  function caseIndex(item) {
+    return `第${String(item.id).padStart(3, "0")}案`;
+  }
+
+  function updateSummary(item) {
+    if (!item) {
+      summaryCount.textContent = `共 ${caseData.length} 案`;
+      summaryTitle.textContent = "按案件编号排列";
+      summaryMeta.textContent = "悬停、聚焦或点击查看故事与应对启示";
+      return;
+    }
+    summaryCount.textContent = "案例名称";
+    summaryTitle.textContent = item.caseName;
+    summaryMeta.textContent = "查看新闻故事与应对启示";
+  }
+
+  function populatePopover(item) {
+    fields.title.textContent = item.caseName;
+    fields.story.textContent = item.story;
+    fields.insight.textContent = item.insight;
+  }
+
+  function positionPopover(button) {
+    const rootRect = root.getBoundingClientRect();
+    const buttonRect = button.getBoundingClientRect();
+    const popoverRect = popover.getBoundingClientRect();
+    const inset = 8;
+    const gutter = 10;
+    const maxX = Math.max(inset, root.clientWidth - popoverRect.width - inset);
+    let left = buttonRect.right - rootRect.left + gutter;
+    if (left + popoverRect.width > root.clientWidth - inset) {
+      left = buttonRect.left - rootRect.left - popoverRect.width - gutter;
+    }
+    left = Math.max(inset, Math.min(maxX, left));
+
+    const desiredTop = buttonRect.top - rootRect.top + buttonRect.height / 2 - popoverRect.height / 2;
+    const maxY = Math.max(inset, root.scrollHeight - popoverRect.height - inset);
+    const top = Math.max(inset, Math.min(maxY, desiredTop));
+    popover.style.left = `${left}px`;
+    popover.style.top = `${top}px`;
+  }
+
+  function show(item, button) {
+    activeButton = button;
+    populatePopover(item);
+    updateSummary(item);
+    popover.hidden = false;
+    requestAnimationFrame(() => positionPopover(button));
+  }
+
+  function restorePinnedOrHide() {
+    if (pinnedId != null) {
+      const item = byId.get(pinnedId);
+      const button = buttons.get(pinnedId);
+      if (item && button) show(item, button);
+      return;
+    }
+    activeButton = null;
+    popover.hidden = true;
+    updateSummary(null);
+  }
+
+  function setPinned(item, button) {
+    for (const tile of buttons.values()) tile.setAttribute("aria-pressed", "false");
+    if (pinnedId === item.id) {
+      pinnedId = null;
+      restorePinnedOrHide();
+      return;
+    }
+    pinnedId = item.id;
+    button.setAttribute("aria-pressed", "true");
+    show(item, button);
+  }
+
+  const fragment = document.createDocumentFragment();
+  for (const item of caseData) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "btn viz-tile case-tile text-small";
+    button.textContent = String(item.id).padStart(3, "0");
+    button.setAttribute("aria-pressed", "false");
+    button.setAttribute("aria-label", `${caseIndex(item)}：${item.caseName}。悬停、聚焦或点击查看新闻故事与网暴应对启示。`);
+    button.addEventListener("pointerenter", () => show(item, button));
+    button.addEventListener("pointerleave", restorePinnedOrHide);
+    button.addEventListener("mouseenter", () => show(item, button));
+    button.addEventListener("mouseleave", restorePinnedOrHide);
+    button.addEventListener("focus", () => show(item, button));
+    button.addEventListener("blur", restorePinnedOrHide);
+    button.addEventListener("click", () => setPinned(item, button));
+    buttons.set(item.id, button);
+    fragment.appendChild(button);
+  }
+  grid.appendChild(fragment);
+
+  root.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    pinnedId = null;
+    for (const tile of buttons.values()) tile.setAttribute("aria-pressed", "false");
+    restorePinnedOrHide();
+  });
+
+  window.addEventListener("resize", () => {
+    if (activeButton && !popover.hidden) positionPopover(activeButton);
+  });
+})();
+</script>
